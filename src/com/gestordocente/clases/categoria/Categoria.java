@@ -9,6 +9,7 @@ package com.gestordocente.clases.categoria;
  * @author sardlimad
  */
 public class Categoria {
+    protected boolean docente;
     protected String nombre;
     protected float aumento;
     
@@ -16,9 +17,24 @@ public class Categoria {
         this.nombre = nombre;
         this.aumento = aumento;
     }
-    
-    //Metodos get
-    public String getNombre(){
-        return this.nombre;
+
+    //Metodos GET
+    public boolean IsDocente() {
+        return docente;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public float getAumento() {
+        return aumento;
+    }
+    
+    //Metodos SET
+
+    public void setAumento(float aumento) {
+        this.aumento = aumento;
+    }
+    
 }

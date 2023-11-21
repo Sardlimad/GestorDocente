@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/com/gestordocente/clases/Asignatura.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>13</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/Departamento.java</file>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/profesor/Profesor.java</file>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/profesor/Adiestrado.java</file>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/Validacion.java</file>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/Asignatura.java</file>
             <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/GestorDocente.java</file>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/seeder/Seeder.java</file>
         </group>
     </open-files>
 </project-private>
