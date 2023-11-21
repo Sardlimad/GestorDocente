@@ -12,16 +12,33 @@ import com.gestordocente.clases.categoria.Categoria;
  */
 public class Adiestrado extends Profesor {
 
-    private boolean autorizo = false;
+    private boolean autorizo = false; //autorio para docencia
 
     public Adiestrado(String ci, String nombre,Categoria catDocente, Categoria catCientifica, int tiempo, boolean autorizo) {
         super(ci, nombre,catDocente, catCientifica, tiempo);
 
         this.autorizo = autorizo;
     }
+
+    public boolean isAutorizo() {
+        return autorizo;
+    }
+
+    public void setAutorizo(boolean autorizo) {
+        this.autorizo = autorizo;
+    }
     
-    public boolean getAutorizo(){
-        return this.autorizo;
+    @Override
+    public boolean isCalificado(){
+        System.out.println("Adiestrado: "+nombre+" "+ disponible+" "+ autorizo+" "+catDocente.getNombre()+ " "+ tiempoServicio); 
+        
+        if(!disponible) return false;
+        
+        if(tiempoServicio <= 1) return autorizo;
+        
+        return true;
+        
+//        return  disponible && (tiempoServicio <= 1 ? autorizo : true);
     }
 
 }
