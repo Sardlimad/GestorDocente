@@ -51,8 +51,16 @@ public class Lista<T> {
         return items.length;
     }
     
+    public boolean isEmpty(){
+        return items.length == 0;
+    }
+    
     public T getItemAt(int index){
         return items[index];
+    }
+    
+    public void setItemAt(int index, T item){
+        items[index] = item;
     }
 
 }

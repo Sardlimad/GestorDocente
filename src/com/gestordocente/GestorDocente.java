@@ -6,6 +6,8 @@ package com.gestordocente;
 
 import com.gestordocente.clases.Asignatura;
 import com.gestordocente.clases.Departamento;
+import com.gestordocente.clases.Lista;
+import com.gestordocente.clases.Turno;
 import com.gestordocente.clases.Validacion;
 import com.gestordocente.clases.categoria.Categoria;
 import com.gestordocente.clases.profesor.Adiestrado;
@@ -53,8 +55,8 @@ public class GestorDocente extends javax.swing.JFrame {
     public GestorDocente() {
         initComponents();
 
-        //Comentar linea para eliminar los datos de ejemplo
-//        depto.seed(5, 4);
+        //Comentar linea para no crear datos de ejemplo
+        depto.seed(5, 4);
 
         modeloAsig = (DefaultTableModel) AsigTable.getModel();
         modeloProfe = (DefaultTableModel) ProfeTable.getModel();
@@ -87,7 +89,8 @@ public class GestorDocente extends javax.swing.JFrame {
             modeloProfe.removeRow(i);
         }
         //Rellenar todas las Filas de la tabla
-        for (Profesor profe : depto.getProfesores()) {
+        for (int i = 0; i < depto.getProfesores().count(); i++) {
+            Profesor profe = depto.getProfesores().getItemAt(i);
             modeloProfe.addRow(new Object[]{profe.getCi(), profe.getNombre(), profe.getSalario(), profe.getCatDocente().getNombre()});
         }
     }
@@ -99,7 +102,8 @@ public class GestorDocente extends javax.swing.JFrame {
             modeloAsig.removeRow(i);
         }
         //Rellenar todas las Filas de la tabla
-        for (Asignatura asig : depto.getAsignaturas()) {
+        for (int i = 0; i < depto.getAsignaturas().count(); i++) {
+            Asignatura asig = depto.getAsignaturas().getItemAt(i);
             modeloAsig.addRow(new Object[]{asig.getNombre(), asig.getCarrera(), asig.getAnho(), asig.getTotalHC()});
         }
     }
@@ -2235,7 +2239,7 @@ public class GestorDocente extends javax.swing.JFrame {
     private void EditarAsigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarAsigActionPerformed
         indexItem = AsigTable.getSelectedRow();
 
-        Asignatura asig = depto.getAsignaturas()[indexItem];
+        Asignatura asig = depto.getAsignaturas().getItemAt(indexItem);
 
         //Rellenar los TextField con los valores de la asignatura
         nombreAsigTxt.setText(asig.getNombre());
@@ -2363,12 +2367,13 @@ public class GestorDocente extends javax.swing.JFrame {
             Categoria catDocente = depto.getCatDocenteByName(catDProfeCmb.getSelectedItem().toString());
             Categoria catCientifica = depto.getCatCientificaByName(catCProfeCmb.getSelectedItem().toString());
             int antiguedad = (int) antigProfeSpn.getValue();
+            boolean disponible = disponibleProfeCheck.isSelected();
 
             if (catDocente.getNombre().equals("Adiestrado")) {
                 boolean autorizo = autorizoProfeCheck.isSelected();
-                depto.AddProfesor(ci, nombre, catDocente, catCientifica, antiguedad, autorizo);
+                depto.AddProfesor(ci, nombre, catDocente, catCientifica, antiguedad, disponible, autorizo);
             } else {
-                depto.AddProfesor(ci, nombre, catDocente, catCientifica, antiguedad);
+                depto.AddProfesor(ci, nombre, catDocente, catCientifica, antiguedad, disponible);
             }
 
             //Agregar los datos a la Tabla
@@ -2420,7 +2425,7 @@ public class GestorDocente extends javax.swing.JFrame {
             //Actualizar la tabla con los nuevos valores
             modeloProfe.setValueAt(ci, indexItem, 0);
             modeloProfe.setValueAt(nombre, indexItem, 1);
-            modeloProfe.setValueAt(depto.getProfesores()[indexItem].getSalario(), indexItem, 2);
+            modeloProfe.setValueAt(depto.getProfesores().getItemAt(indexItem).getSalario(), indexItem, 2);
 
             //restaurar el indicie de la fila a editar
             indexItem = -1;
@@ -2505,13 +2510,20 @@ public class GestorDocente extends javax.swing.JFrame {
         }
     }
 
-    public void renderComboBox(JComboBox comboBox, Profesor[] profesores) {
-        for (int i = 0; i < depto.getProfesores().length; i++) {
-            comboBox.addItem(profesores[i].getNombre());
+    public void renderComboBox(JComboBox comboBox, Lista<Profesor> profesores) {
+
+        comboBox.removeAllItems();
+
+        comboBox.addItem("Sin Asignar");
+        comboBox.setSelectedIndex(0);
+
+        for (int i = 0; i < depto.getProfesores().count(); i++) {
+            comboBox.addItem(profesores.getItemAt(i).getNombre());
             /*if (depto.getJefe().equals(profesores[i])) {
                comboBox.setSelectedIndex(i + 1);
             }*/
         }
+
     }
 
     private void catCProfeCmbItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_catCProfeCmbItemStateChanged
@@ -2526,10 +2538,10 @@ public class GestorDocente extends javax.swing.JFrame {
         Categoria catg = depto.getCatDocenteByName(catDProfeCmb.getSelectedItem().toString());
 
         salCDProfeTxt.setText(Float.toString(catg.getAumento()));
-        
+
         int antig = Integer.parseInt(antigProfeSpn.getValue().toString());
 
-        if (catg.getNombre().equals("Adiestrado") && antig<=1) {
+        if (catg.getNombre().equals("Adiestrado") && antig <= 1) {
             autorizoProfeCheck.setEnabled(true);
         } else {
             autorizoProfeCheck.setEnabled(false);
@@ -2546,13 +2558,13 @@ public class GestorDocente extends javax.swing.JFrame {
     private void antigProfeSpnStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_antigProfeSpnStateChanged
         Categoria catg = depto.getCatDocenteByName(catDProfeCmb.getSelectedItem().toString());
         int antig = Integer.parseInt(antigProfeSpn.getValue().toString());
-        
-        if (catg.getNombre().equals("Adiestrado") && antig<=1) {
+
+        if (catg.getNombre().equals("Adiestrado") && antig <= 1) {
             autorizoProfeCheck.setEnabled(true);
         } else {
             autorizoProfeCheck.setEnabled(false);
         }
-        
+
         float value = antig * Departamento.getAumentoAntig();
         salAntigProfeTxt.setText(Float.toString(value));
 
@@ -2598,7 +2610,7 @@ public class GestorDocente extends javax.swing.JFrame {
     private void EditarProfeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarProfeActionPerformed
         indexItem = ProfeTable.getSelectedRow();
 
-        Profesor profe = depto.getProfesores()[indexItem];
+        Profesor profe = depto.getProfesores().getItemAt(indexItem);
 
         ciProfeTxt.setText(profe.getCi());
         nombreProfeTxt.setText(profe.getNombre());
@@ -2651,15 +2663,17 @@ public class GestorDocente extends javax.swing.JFrame {
                 modeloPlan.removeRow(i);
             }
 
-            for (int i = 0; i < depto.getAsignaturas().length; i++) {
-                for (int j = 0; j < depto.getAsignaturas()[i].getTurnos().length; j++) {
-                    if (depto.getAsignaturas()[i].getTurnos()[j].getHorasClase() != 0) {
-                        String asignatura = depto.getAsignaturas()[i].getNombre();
-                        String tipoClase = depto.getAsignaturas()[i].getTurnos()[j].getTipo();
-                        int horasClase = depto.getAsignaturas()[i].getTurnos()[j].getHorasClase();
-                        String profesor = depto.getAsignaturas()[i].getTurnos()[j].getProfesor().getNombre();
-                        String catDocente = depto.getAsignaturas()[i].getTurnos()[j].getProfesor().getCatDocente().getNombre();
+            for (int i = 0; i < depto.getAsignaturas().count(); i++) {
+                Asignatura asig = depto.getAsignaturas().getItemAt(i);
+                for (Turno turno : asig.getTurnos()) {
+                    if (turno.getHorasClase() != 0) {
+                        String asignatura = asig.getNombre();
+                        String tipoClase = turno.getTipo();
+                        int horasClase = turno.getHorasClase();
+                        String profesor = turno.getProfesor().getNombre();
+                        System.out.println(i+"|" +horasClase + "|" + profesor);
 
+                        String catDocente = turno.getProfesor().getCatDocente().getNombre();
                         modeloPlan.addRow(new Object[]{asignatura, tipoClase, horasClase, profesor, catDocente});
                     }
                 }
@@ -2811,12 +2825,17 @@ public class GestorDocente extends javax.swing.JFrame {
             System.out.println(depto.getJefe().getNombre());
         }
 
+        nombreDeptoTxt.setFocusable(false);
+        facultadDeptoTxt.setFocusable(false);
+        salBDeptoTxt.setFocusable(false);
+        jefeDeptoCmb.setEnabled(false);
+
         saveDeptoInfoBtn.setEnabled(false);
         editDeptoInfoBtn.setEnabled(true);
     }//GEN-LAST:event_saveDeptoInfoBtnMouseClicked
 
     private void checkPlanDevBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkPlanDevBtnMouseClicked
-        System.out.println(depto.posibleSetPlan());
+        System.out.println(depto.isSetteablePlan());
     }//GEN-LAST:event_checkPlanDevBtnMouseClicked
 
     private void seedDevBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seedDevBtnMouseClicked
@@ -2825,6 +2844,9 @@ public class GestorDocente extends javax.swing.JFrame {
         depto.seed(asigs, profes);
         seedAsigTable();
         seedProfeTable();
+        //Agregar cada uno de los profesores al ComboBox en Vista Departamento
+        renderComboBox(jefeDeptoCmb, depto.getProfesores());
+
         JOptionPane.showMessageDialog(DevPanel, "Datos Generados Exitosamente", "Generador de Datos", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_seedDevBtnMouseClicked
 

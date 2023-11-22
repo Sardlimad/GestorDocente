@@ -20,8 +20,8 @@ public class Departamento {
     protected String nombre = "Departamento";
     protected String facultad = "Facultad";
     protected Profesor jefe;
-    protected Profesor[] profesores = new Profesor[0];    
-    protected Asignatura[] asignaturas = new Asignatura[0];
+    protected Lista<Profesor> profesores;
+    protected Lista<Asignatura> asignaturas;
 
     protected static Categoria[] categoriasDocentes = {
         new Categoria("Profesor Titular", 500),
@@ -49,7 +49,7 @@ public class Departamento {
     public Departamento() {
     }
 
-    public Departamento(String nombre, String facultad, Profesor jefe, Profesor[] profesores, Asignatura[] asignaturas) {
+    public Departamento(String nombre, String facultad, Profesor jefe, Lista<Profesor> profesores, Lista<Asignatura> asignaturas) {
 
         this.nombre = nombre;
         this.facultad = facultad;
@@ -78,33 +78,36 @@ public class Departamento {
     }
 
     public void setJefe(int index) {
-        this.jefe = profesores[index];
+        this.jefe = profesores.getItemAt(index);
     }
 
-    public void setProfesores(Profesor[] profesores) {
+    public void setProfesores(Lista<Profesor> profesores) {
         this.profesores = profesores;
     }
 
-    public void setAsignaturas(Asignatura[] asignaturas) {
+    public void setAsignaturas(Lista<Asignatura> asignaturas) {
         this.asignaturas = asignaturas;
     }
 
     public void setAsignatura(int index, String nombre, String diciplina, int[] horasClase, String planEst, String carrera, int aAcad) {
-        asignaturas[index] = new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad);
+        Asignatura asignatura = new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad);
+        asignaturas.setItemAt(index, asignatura);
     }
 
     public void setAsignatura(int index, String nombre, String diciplina, int[] horasClase, String planEst, String carrera, int aAcad, String tipoEvalFinal) {
-        asignaturas[index] = new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad, tipoEvalFinal);
+        Asignatura asignatura = new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad, tipoEvalFinal);
+        asignaturas.setItemAt(index, asignatura);
     }
 
     public void setProfesor(int index, String ci, String nombre, Categoria catDocente, Categoria catCientifica, int tiempo, boolean disponible) {
-        profesores[index] = new Profesor(ci, nombre, catDocente, catCientifica, tiempo);
-        profesores[index].setDisponible(disponible);
+        Profesor profesor = new Profesor(ci, nombre, catDocente, catCientifica, tiempo, disponible);
+        profesores.setItemAt(index, profesor);
+
     }
 
     public void setProfesor(int index, String ci, String nombre, Categoria catDocente, Categoria catCientifica, int tiempo, boolean disponible, boolean autorizo) {
-        profesores[index] = new Adiestrado(ci, nombre, catDocente, catCientifica, tiempo, autorizo);
-        profesores[index].setDisponible(disponible);
+        Profesor profesor = new Adiestrado(ci, nombre, catDocente, catCientifica, tiempo, disponible, autorizo);
+        profesores.setItemAt(index, profesor);
     }
 
     public void setSalarioBase(float salario) {
@@ -128,11 +131,11 @@ public class Departamento {
         return jefe;
     }
 
-    public Asignatura[] getAsignaturas() {
+    public Lista<Asignatura> getAsignaturas() {
         return this.asignaturas;
     }
 
-    public Profesor[] getProfesores() {
+    public Lista<Profesor> getProfesores() {
         return profesores;
     }
 
@@ -186,87 +189,28 @@ public class Departamento {
     }
 
     //Otros Metodos
-    public void AddProfesor(String ci, String nombre, Categoria catDocente, Categoria catCientifica, int tiempo) {
-
-        Profesor aux[] = new Profesor[this.profesores.length + 1]; //Crear nuevo array
-
-        for (int i = 0; i < this.profesores.length; i++) {
-            aux[i] = this.profesores[i];
-        }
-
-        //Alamcenar nuevo Profesor en la ultima posicion
-        aux[aux.length - 1] = new Profesor(ci, nombre, catDocente, catCientifica, tiempo);
-
-        this.profesores = aux;
+    public void AddProfesor(String ci, String nombre, Categoria catDocente, Categoria catCientifica, int tiempo, boolean disponible) {
+        profesores.addItem(new Profesor(ci, nombre, catDocente, catCientifica, tiempo, disponible));
     }
 
-    public void AddProfesor(String ci, String nombre, Categoria catDocente, Categoria catCientifica, int tiempo, boolean autorizo) {
-
-        Profesor aux[] = new Profesor[this.profesores.length + 1]; //Crear nuevo array
-
-        for (int i = 0; i < this.profesores.length; i++) {
-            aux[i] = this.profesores[i];
-        }
-
-        //Alamcenar nuevo Profesor en la ultima posicion (Tipo Adiestrado)
-        aux[aux.length - 1] = new Adiestrado(ci, nombre, catDocente, catCientifica, tiempo, false);
-
-        this.profesores = aux;
+    public void AddProfesor(String ci, String nombre, Categoria catDocente, Categoria catCientifica, int tiempo, boolean disponible, boolean autorizo) {
+        profesores.addItem(new Adiestrado(ci, nombre, catDocente, catCientifica, tiempo, disponible, autorizo));
     }
 
     public void AddAsignatura(String nombre, String diciplina, int[] horasClase, String planEst, String carrera, int aAcad) {
-
-        Asignatura aux[] = new Asignatura[this.asignaturas.length + 1]; //Crear nuevo array
-
-        for (int i = 0; i < this.asignaturas.length; i++) {
-            aux[i] = this.asignaturas[i];
-        }
-
-        aux[aux.length - 1] = new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad);
-
-        this.asignaturas = aux;
+        asignaturas.addItem(new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad));
     }
 
     public void AddAsignatura(String nombre, String diciplina, int[] horasClase, String planEst, String carrera, int aAcad, String tipoEvalFinal) {
-        Asignatura aux[] = new Asignatura[this.asignaturas.length + 1]; //Crear nuevo array
-
-        for (int i = 0; i < this.asignaturas.length; i++) {
-            aux[i] = this.asignaturas[i];
-        }
-
-        aux[aux.length - 1] = new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad, tipoEvalFinal);
-
-        this.asignaturas = aux;
+        asignaturas.addItem(new Asignatura(nombre, diciplina, horasClase, planEst, carrera, aAcad, tipoEvalFinal));
     }
 
     public void RemoveAsignaturaAt(int index) {
-        Asignatura aux[] = new Asignatura[this.asignaturas.length - 1];
-
-        for (int i = 0; i < aux.length; i++) {
-
-            if (i >= index) {
-                aux[i] = this.asignaturas[i + 1];
-            } else {
-                aux[i] = this.asignaturas[i];
-            }
-
-        }
-        asignaturas = aux;
+        asignaturas.removeItemAt(index);
     }
 
     public void RemoveProfesorAt(int index) {
-        Profesor aux[] = new Profesor[this.profesores.length - 1];
-
-        for (int i = 0; i < aux.length; i++) {
-
-            if (i >= index) {
-                aux[i] = this.profesores[i + 1];
-            } else {
-                aux[i] = this.profesores[i];
-            }
-
-        }
-        profesores = aux;
+        profesores.removeItemAt(index);
     }
 
     public void AddCatDocente(String nombre, float aumento) {
@@ -295,62 +239,63 @@ public class Departamento {
 
     //Realizar la distribucion de profesores por Tipo de Clase de cada Asignaturas
     public boolean setPlan() {
-        System.out.flush();
 
-        if (!posibleSetPlan()) {
+        if (!isSetteablePlan()) {
             String mensaje = "Imposible generar la Planfificación. Profesores insuficientes.";
             GestorDocente.showAlert(nombre, mensaje, JOptionPane.ERROR_MESSAGE);
             return false; //fallo al crear el plan
         }
 
         //Liberar a los profesores de todos los turnos
-        for (Asignatura asig : asignaturas) {
-            for (Turno turno : asig.getTurnos()) {
+        for (int i = 0; i < asignaturas.count(); i++) {
+            for (Turno turno : asignaturas.getItemAt(i).getTurnos()) {
                 turno.setProfesor(null);
             }
         }
 
         //Reestablecer HorasClase de Profesores
-        for (Profesor profesor : profesores) {
-            profesor.restartHoras();
+        for (int i = 0; i < profesores.count(); i++) {
+            profesores.getItemAt(i).restartHoras();
         }
 
         //[0]Catg.Docentes, [1]Profesores pertenecientes a una Catg.
-        Profesor[][] profes = agruparProfe();
+        Lista<Profesor>[] profesByCat = agruparProfe();
 
 //        int indexProfe = 0; //Indice del profesor con menor cantidad de Horas ClaSe
 //        int minCant = 0; //menor cantidad de Horas Clase;
         //Iterar por Tipos de Clase
         for (int i = 0; i < 5; i++) {
             //Iterar por Asignaturas
-            for (int j = 0; j < this.asignaturas.length; j++) {
-                if (this.asignaturas[j].getTurnos()[i].getHorasClase() == 0) {
+            for (int j = 0; j < this.asignaturas.count(); j++) {
+                if (this.asignaturas.getItemAt(j).getTurnos()[i].getHorasClase() == 0) {
                     continue;
                 }
                 //Iterar por Array de Arrays de Profesores Agrupados por C. Docente
-                for (int k = 0; k < profes.length; k++) {
+                for (int k = 0; k < profesByCat.length; k++) {
 
-                    if (profes[k].length == 0) {
+                    if (profesByCat[k].isEmpty()) {
                         continue;
                     }
                     int indexProfe = 0; //Indice del profesor con menor cantidad de Horas ClaSe
-                    int minCant = profes[k][indexProfe].getHoras(); //menor cantidad de Horas Clase;
+                    int minCant = profesByCat[k].getItemAt(indexProfe).getHoras(); //menor cantidad de Horas Clase;
                     //Iterar por Profesores de una categoria k
-                    for (int l = 0; l < profes[k].length; l++) {
+                    for (int l = 0; l < profesByCat[k].count(); l++) {
+                        Profesor profesor = profesByCat[k].getItemAt(l);
                         //Si las horas clases del profesor son menores que las existentes entonces actualizar indexProfe y minCant
-                        if (profes[k][l].getHoras() < minCant) {
+                        if (profesor.getHoras() < minCant) {
                             indexProfe = l;
-                            minCant = profes[k][l].getHoras();
+                            minCant = profesor.getHoras();
                         }
                     }
 
-                    Profesor profe = profes[k][indexProfe];
-//                    
-                    boolean noExcede = (profe.getHoras() + this.asignaturas[j].getTurnos()[i].getHorasClase()) <= 12; //si super las 12 horas se excede
-                    
+                    Profesor profe = profesByCat[k].getItemAt(indexProfe);
+                    Asignatura asig = this.asignaturas.getItemAt(j);
+
+                    boolean noExcede = (profe.getHoras() + asig.getTurnos()[i].getHorasClase()) <= 12; //si super las 12 horas se excede
+
                     if (noExcede && profe.isCalificado()) {
-                        this.asignaturas[j].getTurnos()[i].setProfesor(profe); //Establecer Profesor para ese Turno
-                        profe.addHoras(this.asignaturas[j].getTurnos()[i].getHorasClase());  //Aumentar las horas clase del Profesor                      
+                        asig.getTurnos()[i].setProfesor(profe); //Establecer Profesor para ese Turno
+                        profe.addHoras(asig.getTurnos()[i].getHorasClase());  //Aumentar las horas clase del Profesor                      
                         break;
                     }
                 }
@@ -359,75 +304,57 @@ public class Departamento {
         return true; //true El plan se creo satisfactoriamente
     }
 
-    public Profesor[][] agruparProfe() {
+    public Lista<Profesor>[] agruparProfe() {
 
-        Profesor[][] profes = new Profesor[5][];
+        Lista<Profesor>[] catgs = (Lista<Profesor>[]) new Lista[5];
 
-        for (int i = 0; i < profes.length; i++) {
-            profes[i] = new Profesor[0];
+        for (int i = 0; i < catgs.length; i++) {
+            catgs[i] = new Lista<>();
         }
 
-        for (Profesor profesor : profesores) {
-
-            switch (profesor.getCatDocente().getNombre()) {
-
+        for (int i = 0; i < profesores.count(); i++) {
+            switch (profesores.getItemAt(i).getCatDocente().getNombre()) {
                 case "Profesor Titular":
-                    Profesor[] titular = new Profesor[profes[0].length + 1];
-                    System.arraycopy(profes[0], 0, titular, 0, profes[0].length);
-                    titular[titular.length - 1] = profesor;
-                    profes[0] = titular;
+                    catgs[0].addItem(profesores.getItemAt(i));
                     break;
-
                 case "Profesor Auxiliar":
-                    Profesor[] auxiliar = new Profesor[profes[1].length + 1];
-                    System.arraycopy(profes[1], 0, auxiliar, 0, profes[1].length);
-                    auxiliar[auxiliar.length - 1] = profesor;
-                    profes[1] = auxiliar;
+                    catgs[1].addItem(profesores.getItemAt(i));
                     break;
-
                 case "Asistente":
-                    Profesor[] asistente = new Profesor[profes[2].length + 1];
-                    System.arraycopy(profes[2], 0, asistente, 0, profes[2].length);
-                    asistente[asistente.length - 1] = profesor;
-                    profes[2] = asistente;
+                    catgs[2].addItem(profesores.getItemAt(i));
                     break;
-
                 case "Instructor":
-                    Profesor[] instructor = new Profesor[profes[3].length + 1];
-                    System.arraycopy(profes[3], 0, instructor, 0, profes[3].length);
-                    instructor[instructor.length - 1] = profesor;
-                    profes[3] = instructor;
+                    catgs[3].addItem(profesores.getItemAt(i));
                     break;
-
                 case "Adiestrado":
-                    Profesor[] adiestrado = new Profesor[profes[4].length + 1];
-                    System.arraycopy(profes[4], 0, adiestrado, 0, profes[4].length);
-                    adiestrado[adiestrado.length - 1] = profesor;
-                    profes[4] = adiestrado;
+                    catgs[4].addItem(profesores.getItemAt(i));
                     break;
 
                 default:
                     throw new AssertionError();
             }
         }
-        return profes;
+        return catgs;
     }
 
-    public boolean posibleSetPlan() {
-        int cantProfes = 0;//Cant. profesor disponibles
-        for (Profesor profe : profesores) {
-            if (profe.isCalificado()) {
+//Determinar si es posible establecer el plan teniendo en cuenta la cantidad de Horas Clases Totales y la cantidad de Profesores(max 12 horas)
+    public boolean isSetteablePlan() {
+        int cantProfes = 0;//Cant. profesor disponibles y calificados para impartir docencia
+
+        for (int i = 0; i < profesores.count(); i++) {
+            if (profesores.getItemAt(i).isCalificado()) {
                 cantProfes++;
             }
         }
 
-        int horasAsigs = 0;
+        int horasAsigs = 0; //Tomatoria de Horas Clase de todas las asignaturas
 
-        for (Asignatura asig : asignaturas) {
-            for (Turno turno : asig.getTurnos()) {
+        for (int i = 0; i < asignaturas.count(); i++) {
+            for (Turno turno : asignaturas.getItemAt(i).getTurnos()) {
                 horasAsigs += turno.getHorasClase();
             }
         }
+
         System.out.println(horasAsigs + "|" + cantProfes * 12);
 
         return horasAsigs <= cantProfes * 12;
