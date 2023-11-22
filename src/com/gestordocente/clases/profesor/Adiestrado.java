@@ -14,8 +14,8 @@ public class Adiestrado extends Profesor {
 
     private boolean autorizo = false; //autorio para docencia
 
-    public Adiestrado(String ci, String nombre,Categoria catDocente, Categoria catCientifica, int tiempo, boolean autorizo) {
-        super(ci, nombre,catDocente, catCientifica, tiempo);
+    public Adiestrado(String ci, String nombre,Categoria catDocente, Categoria catCientifica, int tiempo,boolean disponible, boolean autorizo) {
+        super(ci, nombre,catDocente, catCientifica, tiempo, disponible);
 
         this.autorizo = autorizo;
     }
