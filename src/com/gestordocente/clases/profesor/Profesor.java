@@ -21,13 +21,12 @@ public class Profesor {
     
     protected int horas = 0;
 
-    public Profesor(String ci, String nombre,Categoria catDocente, Categoria catCientifica, int tiempo, boolean disponible) {
+    public Profesor(String ci, String nombre,Categoria catDocente, Categoria catCientifica, int tiempo) {
         this.ci = ci;
         this.nombre = nombre;
         this.catDocente = catDocente;
         this.catCientifica = catCientifica;
         this.tiempoServicio = tiempo;
-        this.disponible = disponible;
     }
 
     public String getCi() {
@@ -95,7 +94,7 @@ public class Profesor {
     //Otros Metodos
     
     public boolean isCalificado(){
-//        System.out.println(catDocente.getNombre()+": "+ nombre +": "+ disponible);
+        System.out.println(catDocente.getNombre()+": "+ nombre +": "+ disponible);
         return disponible; 
     }
     

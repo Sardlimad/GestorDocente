@@ -6,7 +6,6 @@ package com.gestordocente.clases.seeder;
 
 import com.gestordocente.clases.Asignatura;
 import com.gestordocente.clases.Departamento;
-import com.gestordocente.clases.Lista;
 import com.gestordocente.clases.categoria.Categoria;
 import com.gestordocente.clases.profesor.Adiestrado;
 import com.gestordocente.clases.profesor.Profesor;
@@ -87,33 +86,38 @@ public class Seeder {
     
     //Generadores de Tipos Primarios (Profesores, Asignaturas)
 
-    public static Lista<Profesor> generateProfesor(int cant) {
-        Lista<Profesor> profesores = new Lista();
-        
+    public static Profesor[] generateProfesor(int cant) {
+        Profesor[] profesores = new Profesor[0];
+              
         for (int i = 0; i < cant; i++) {
+            Profesor[] aux = new Profesor[profesores.length + 1];
+            System.arraycopy(profesores, 0, aux, 0, profesores.length);
             if(random.nextBoolean()){
-                profesores.addItem(new Profesor(randomCI(), randomNombre(), randomCatDocente(), randomCatCientifica(), random.nextInt(30), true));
+                aux[aux.length - 1] = new Profesor(randomCI(), randomNombre(), randomCatDocente(), randomCatCientifica(), random.nextInt(30));
             }
             else {
-                profesores.addItem(new Adiestrado(randomCI(), randomNombre(), Departamento.getCatDocentes()[4], randomCatCientifica(), random.nextInt(30), true,random.nextBoolean()));
+                aux[aux.length - 1] = new Adiestrado(randomCI(), randomNombre(), Departamento.getCatDocentes()[4], randomCatCientifica(), random.nextInt(30), random.nextBoolean());
             }
+            profesores = aux;
         }
-        
         return profesores;
     }
        
     
-    public static Lista<Asignatura> generateAsignatura(int cant){
-        Lista<Asignatura> asignaturasAux = new Lista();
+    public static Asignatura[] generateAsignatura(int cant){
+        Asignatura[] asig_temp = new Asignatura[0];
         
         for (int i = 0; i < cant; i++) {
+            Asignatura[] aux = new Asignatura[asig_temp.length + 1];
+            System.arraycopy(asig_temp, 0, aux, 0, asig_temp.length);
             if(!random.nextBoolean()){
-                asignaturasAux.addItem(new Asignatura(randomAsignatura(), randomDisciplina(), randomHorasClase(), "E", randomCarrera(), random.nextInt(5)+1));
+                aux[aux.length - 1] = new Asignatura(randomAsignatura(), randomDisciplina(), randomHorasClase(), "E", randomCarrera(), random.nextInt(5)+1);
             }
             else {
-                asignaturasAux.addItem(new Asignatura(randomAsignatura(), randomDisciplina(), randomHorasClase(), "E", randomCarrera(), random.nextInt(5)+1, randomEvaluacion()));
+                aux[aux.length - 1] = new Asignatura(randomAsignatura(), randomDisciplina(), randomHorasClase(), "E", randomCarrera(), random.nextInt(5)+1, randomEvaluacion());
             }
+            asig_temp = aux;
         }
-        return asignaturasAux;
+        return asig_temp;
     }
 }
