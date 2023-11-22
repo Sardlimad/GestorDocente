@@ -14,11 +14,12 @@
         <group>
             <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/Departamento.java</file>
             <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/profesor/Profesor.java</file>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/Tema.java</file>
             <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/profesor/Adiestrado.java</file>
             <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/Validacion.java</file>
-            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/Asignatura.java</file>
             <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/GestorDocente.java</file>
             <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/seeder/Seeder.java</file>
+            <file>file:/home/sardlimad/NetBeansProjects/GestorDocente/src/com/gestordocente/clases/Turno.java</file>
         </group>
     </open-files>
 </project-private>

@@ -30,8 +30,7 @@ public class Adiestrado extends Profesor {
     
     @Override
     public boolean isCalificado(){
-        System.out.println("Adiestrado: "+nombre+" "+ disponible+" "+ autorizo+" "+catDocente.getNombre()+ " "+ tiempoServicio); 
-        
+                
         if(!disponible) return false;
         
         if(tiempoServicio <= 1) return autorizo;

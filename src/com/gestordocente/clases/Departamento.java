@@ -20,7 +20,7 @@ public class Departamento {
     protected String nombre = "Departamento";
     protected String facultad = "Facultad";
     protected Profesor jefe;
-    protected Profesor[] profesores = new Profesor[0];
+    protected Profesor[] profesores = new Profesor[0];    
     protected Asignatura[] asignaturas = new Asignatura[0];
 
     protected static Categoria[] categoriasDocentes = {
@@ -41,8 +41,7 @@ public class Departamento {
         "Técnico Superior en Redes y Seguridad Informática"};
 
     //Array multidimensional de tamaño: Cantidad de Tipos de Clase(5) x Cantidad de Asignaturas x Cantidad de Profesores
-    protected int planificacion[][][] = new int[5][this.asignaturas.length][this.profesores.length];
-
+//    protected int planificacion[][][] = new int[5][this.asignaturas.length][this.profesores.length];
     protected static float salarioBase = 2500;
     protected static float aumentoAntig = 20;
 
@@ -76,6 +75,10 @@ public class Departamento {
 
     public void setJefe(Profesor jefe) {
         this.jefe = jefe;
+    }
+
+    public void setJefe(int index) {
+        this.jefe = profesores[index];
     }
 
     public void setProfesores(Profesor[] profesores) {
@@ -311,7 +314,7 @@ public class Departamento {
         for (Profesor profesor : profesores) {
             profesor.restartHoras();
         }
-        System.out.println("******NUEVA PLANIFICACION*****");
+
         //[0]Catg.Docentes, [1]Profesores pertenecientes a una Catg.
         Profesor[][] profes = agruparProfe();
 
@@ -320,21 +323,16 @@ public class Departamento {
         //Iterar por Tipos de Clase
         for (int i = 0; i < 5; i++) {
             //Iterar por Asignaturas
-            System.out.println("***" + Asignatura.tipos[i] + "***");
             for (int j = 0; j < this.asignaturas.length; j++) {
                 if (this.asignaturas[j].getTurnos()[i].getHorasClase() == 0) {
-                    System.out.println("A--------------");
                     continue;
                 }
-                System.out.println(j + " " + asignaturas[j].getNombre());
                 //Iterar por Array de Arrays de Profesores Agrupados por C. Docente
                 for (int k = 0; k < profes.length; k++) {
-                    
+
                     if (profes[k].length == 0) {
-                        System.out.println("B--------------");
                         continue;
-                    }System.out.println("Profes de: " + categoriasDocentes[k].getNombre());
-                    
+                    }
                     int indexProfe = 0; //Indice del profesor con menor cantidad de Horas ClaSe
                     int minCant = profes[k][indexProfe].getHoras(); //menor cantidad de Horas Clase;
                     //Iterar por Profesores de una categoria k
@@ -347,22 +345,17 @@ public class Departamento {
                     }
 
                     Profesor profe = profes[k][indexProfe];
-                    System.out.println("Min HC: " + profe.getNombre() + "|" + profe.getHoras());
-//                    if (profe instanceof Adiestrado) {
-//                        profe = (Adiestrado) profes[k][indexProfe];
-//                    }
-                    boolean excede = profe.getHoras() + this.asignaturas[j].getTurnos()[i].getHorasClase() <= 12;
-                    if (excede && profe.isCalificado()) {
-                        this.asignaturas[j].getTurnos()[i].setProfesor(profe);
-                        profe.addHoras(this.asignaturas[j].getTurnos()[i].getHorasClase());
-                        System.out.println(profe.getHoras());
-                        System.out.println("*****Asignado*****");
+//                    
+                    boolean noExcede = (profe.getHoras() + this.asignaturas[j].getTurnos()[i].getHorasClase()) <= 12; //si super las 12 horas se excede
+                    
+                    if (noExcede && profe.isCalificado()) {
+                        this.asignaturas[j].getTurnos()[i].setProfesor(profe); //Establecer Profesor para ese Turno
+                        profe.addHoras(this.asignaturas[j].getTurnos()[i].getHorasClase());  //Aumentar las horas clase del Profesor                      
                         break;
                     }
                 }
             }
         }
-        System.out.println("-PLAN CREADO");
         return true; //true El plan se creo satisfactoriamente
     }
 
