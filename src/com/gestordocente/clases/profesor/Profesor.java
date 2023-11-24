@@ -95,7 +95,6 @@ public class Profesor {
     //Otros Metodos
     
     public boolean isCalificado(){
-//        System.out.println(catDocente.getNombre()+": "+ nombre +": "+ disponible);
         return disponible; 
     }
     

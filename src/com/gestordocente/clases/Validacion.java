@@ -44,7 +44,7 @@ public class Validacion {
         }
     }
     
-    public static void Text(java.awt.event.KeyEvent evt, javax.swing.JTextField input, int length){
+    public static void Letters(java.awt.event.KeyEvent evt, javax.swing.JTextField input, int length){
         int key = evt.getKeyChar();
         
         boolean letters = (key >= 65 && key <= 90) || (key >=97 && key <=122);
@@ -55,12 +55,24 @@ public class Validacion {
         if(input.getText().length() >= length ) evt.consume();
     }
     
+    public static void Alphanumeric(java.awt.event.KeyEvent evt,javax.swing.JTextField input, int length){
+        int key = evt.getKeyChar();
+        
+        boolean letter = (key >= 65 && key <= 90) || (key >=97 && key <=122);
+        boolean number = key >= 48 && key <= 57;
+        boolean space = key== 32;
+        
+        if(!letter && !number && !space) evt.consume();
+        
+        if(input.getText().length() >= length) evt.consume();
+    }
+    
     public static void Number(java.awt.event.KeyEvent evt, javax.swing.JTextField input, int length){
         int key = evt.getKeyChar();
         
-        boolean numbers = key >= 48 && key <= 57;
+        boolean number = key >= 48 && key <= 57;
         
-        if(!numbers) evt.consume();
+        if(!number) evt.consume();
         
         if (input.getText().length() >= length) evt.consume();
     }

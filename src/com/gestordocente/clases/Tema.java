@@ -1,4 +1,4 @@
-package com.gestordocente;
+package com.gestordocente.clases;
 
 import java.awt.Color;
 
@@ -24,6 +24,10 @@ public class Tema {
 
     public static Color getSecondary() {
         return secondary;
+    }
+    
+    public static Color getSecondaryHover(){
+        return secondary.darker();
     }
 
     public static Color getTertiary() {

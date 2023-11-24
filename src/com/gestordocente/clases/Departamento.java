@@ -41,9 +41,11 @@ public class Departamento {
         "Técnico Superior en Redes y Seguridad Informática"};
 
     //Array multidimensional de tamaño: Cantidad de Tipos de Clase(5) x Cantidad de Asignaturas x Cantidad de Profesores
-//    protected int planificacion[][][] = new int[5][this.asignaturas.length][this.profesores.length];
+    //protected int planificacion[][][] = new int[5][this.asignaturas.length][this.profesores.length];
     protected static float salarioBase = 2500;
     protected static float aumentoAntig = 20;
+    
+    protected static boolean confProfeT; //Conferencia solo profesores Titulares
 
     //Constructor vacio
     public Departamento() {
@@ -114,9 +116,14 @@ public class Departamento {
         salarioBase = salario;
     }
 
-    public static void setAumentoAntig(float aumentoAntig) {
-        Departamento.aumentoAntig = aumentoAntig;
+//    public static void setAumentoAntig(float aumentoAntig) {
+//        Departamento.aumentoAntig = aumentoAntig;
+//    }
+
+    public static void setConfProfeT(boolean confProfeT) {
+        Departamento.confProfeT = confProfeT;
     }
+    
 
     //Metodos get
     public String getNombre() {
@@ -151,9 +158,9 @@ public class Departamento {
         return carreras;
     }
 
-    public Categoria getCatDocenteAt(int index) {
-        return categoriasDocentes[index];
-    }
+//    public Categoria getCatDocenteAt(int index) {
+//        return categoriasDocentes[index];
+//    }
 
     public Categoria getCatDocenteByName(String text) {
         for (int i = 0; i < categoriasDocentes.length; i++) {
@@ -165,9 +172,9 @@ public class Departamento {
         return null;
     }
 
-    public Categoria getCatCientificaAt(int index) {
-        return categoriasCientificas[index];
-    }
+//    public Categoria getCatCientificaAt(int index) {
+//        return categoriasCientificas[index];
+//    }
 
     public Categoria getCatCientificaByName(String text) {
 
@@ -187,6 +194,11 @@ public class Departamento {
     public static float getAumentoAntig() {
         return aumentoAntig;
     }
+
+    public static boolean getConfProfeT() {
+        return confProfeT;
+    }
+    
 
     //Otros Metodos
     public void AddProfesor(String ci, String nombre, Categoria catDocente, Categoria catCientifica, int tiempo, boolean disponible) {
@@ -213,36 +225,42 @@ public class Departamento {
         profesores.removeItemAt(index);
     }
 
-    public void AddCatDocente(String nombre, float aumento) {
-        Categoria[] aux = new Categoria[categoriasDocentes.length + 1];
+//    public void AddCatDocente(String nombre, float aumento) {
+//        Categoria[] aux = new Categoria[categoriasDocentes.length + 1];
+//
+//        for (int i = 0; i < categoriasDocentes.length; i++) {
+//            aux[i] = categoriasDocentes[i];
+//        }
+//
+//        aux[aux.length - 1] = new Categoria(nombre, aumento);
+//
+//        categoriasDocentes = aux;
+//    }
 
-        for (int i = 0; i < categoriasDocentes.length; i++) {
-            aux[i] = categoriasDocentes[i];
-        }
-
-        aux[aux.length - 1] = new Categoria(nombre, aumento);
-
-        categoriasDocentes = aux;
-    }
-
-    public void AddCatCientifica(String nombre, float aumento) {
-        Categoria[] aux = new Categoria[categoriasCientificas.length + 1];
-
-        for (int i = 0; i < categoriasCientificas.length; i++) {
-            aux[i] = categoriasCientificas[i];
-        }
-
-        aux[aux.length - 1] = new Categoria(nombre, aumento);
-
-        categoriasCientificas = aux;
-    }
+//    public void AddCatCientifica(String nombre, float aumento) {
+//        Categoria[] aux = new Categoria[categoriasCientificas.length + 1];
+//
+//        for (int i = 0; i < categoriasCientificas.length; i++) {
+//            aux[i] = categoriasCientificas[i];
+//        }
+//
+//        aux[aux.length - 1] = new Categoria(nombre, aumento);
+//
+//        categoriasCientificas = aux;
+//    }
 
     //Realizar la distribucion de profesores por Tipo de Clase de cada Asignaturas
     public boolean setPlan() {
-
+        //Si la cantidad de profesores *12 es menor que el total de horas/clase
         if (!isSetteablePlan()) {
-            String mensaje = "Imposible generar la Planfificación. Profesores insuficientes.";
-            GestorDocente.showAlert(nombre, mensaje, JOptionPane.ERROR_MESSAGE);
+            String mensaje = "Profesores insuficientes.";
+            GestorDocente.showAlert("Imposible Planificar", mensaje, JOptionPane.ERROR_MESSAGE);
+            return false; //fallo al crear el plan
+        }
+        //Si solo los totulares pueden dar conferencia y no hay suficientes profesores para cubir todas
+        if (!suficientesTitulares() && confProfeT) {
+            String mensaje = "Profesores Titulares insuficientes.";
+            GestorDocente.showAlert("Imposible Planificar", mensaje, JOptionPane.ERROR_MESSAGE);
             return false; //fallo al crear el plan
         }
 
@@ -258,11 +276,9 @@ public class Departamento {
             profesores.getItemAt(i).restartHoras();
         }
 
-        //[0]Catg.Docentes, [1]Profesores pertenecientes a una Catg.
+        //Array de Listas de profesores agrupados por Categorias
         Lista<Profesor>[] profesByCat = agruparProfe();
 
-//        int indexProfe = 0; //Indice del profesor con menor cantidad de Horas ClaSe
-//        int minCant = 0; //menor cantidad de Horas Clase;
         //Iterar por Tipos de Clase
         for (int i = 0; i < 5; i++) {
             //Iterar por Asignaturas
@@ -276,8 +292,11 @@ public class Departamento {
                     if (profesByCat[k].isEmpty()) {
                         continue;
                     }
-                    int indexProfe = 0; //Indice del profesor con menor cantidad de Horas ClaSe
-                    int minCant = profesByCat[k].getItemAt(indexProfe).getHoras(); //menor cantidad de Horas Clase;
+                    //Indice del profesor con menor cantidad de Horas ClaSe
+                    int indexProfe = 0;
+                    //menor cantidad de Horas Clase que tiene el profesor;
+                    int minCant = profesByCat[k].getItemAt(indexProfe).getHoras();
+
                     //Iterar por Profesores de una categoria k
                     for (int l = 0; l < profesByCat[k].count(); l++) {
                         Profesor profesor = profesByCat[k].getItemAt(l);
@@ -291,7 +310,7 @@ public class Departamento {
                     Profesor profe = profesByCat[k].getItemAt(indexProfe);
                     Asignatura asig = this.asignaturas.getItemAt(j);
 
-                    boolean noExcede = (profe.getHoras() + asig.getTurnos()[i].getHorasClase()) <= 12; //si super las 12 horas se excede
+                    boolean noExcede = (profe.getHoras() + asig.getTurnos()[i].getHorasClase()) <= 12; //si supera las 12 horas se excede
 
                     if (noExcede && profe.isCalificado()) {
                         asig.getTurnos()[i].setProfesor(profe); //Establecer Profesor para ese Turno
@@ -304,6 +323,7 @@ public class Departamento {
         return true; //true El plan se creo satisfactoriamente
     }
 
+    //Agrupar profesores por categorias docentes
     public Lista<Profesor>[] agruparProfe() {
 
         Lista<Profesor>[] catgs = (Lista<Profesor>[]) new Lista[5];
@@ -347,16 +367,34 @@ public class Departamento {
             }
         }
 
-        int horasAsigs = 0; //Tomatoria de Horas Clase de todas las asignaturas
+        int horasAsigs = 0; //Sumatoria de Horas Clase de todas las asignaturas
 
         for (int i = 0; i < asignaturas.count(); i++) {
             for (Turno turno : asignaturas.getItemAt(i).getTurnos()) {
                 horasAsigs += turno.getHorasClase();
             }
         }
-
-        System.out.println(horasAsigs + "|" + cantProfes * 12);
-
+        
         return horasAsigs <= cantProfes * 12;
     }
+    
+    public boolean suficientesTitulares(){
+        int profesTitulares = 0;//Cant. Profesor Titulares disponibles
+
+        for (int i = 0; i < profesores.count(); i++) {
+            Profesor profe = profesores.getItemAt(i);
+            if (profe.isDisponible() && profe.getCatDocente().getNombre().equals("Profesor Titular")) {
+                profesTitulares++;
+            }
+        }
+        
+        int horasConf = 0; //Sumatoria de Horas Clase de conferencia todas las asignaturas
+        
+        for (int i = 0; i < asignaturas.count(); i++) {
+            horasConf += asignaturas.getItemAt(i).getTurnos()[0].getHorasClase(); //Horas Clase de conferencia en cada asignatura            
+        }
+        
+        return horasConf <= profesTitulares *12;
+    }
+    
 }

@@ -12,20 +12,20 @@ import com.gestordocente.clases.categoria.Categoria;
  */
 public class Adiestrado extends Profesor {
 
-    private boolean autorizo = false; //autorio para docencia
+    private boolean autorizado = false; //autorio para docencia
 
     public Adiestrado(String ci, String nombre,Categoria catDocente, Categoria catCientifica, int tiempo,boolean disponible, boolean autorizo) {
         super(ci, nombre,catDocente, catCientifica, tiempo, disponible);
 
-        this.autorizo = autorizo;
+        this.autorizado = autorizo;
     }
 
-    public boolean isAutorizo() {
-        return autorizo;
+    public boolean isAutorizado() {
+        return autorizado;
     }
 
-    public void setAutorizo(boolean autorizo) {
-        this.autorizo = autorizo;
+    public void setAutorizado(boolean autorizado) {
+        this.autorizado = autorizado;
     }
     
     @Override
@@ -33,11 +33,11 @@ public class Adiestrado extends Profesor {
                 
         if(!disponible) return false;
         
-        if(tiempoServicio <= 1) return autorizo;
+        if(tiempoServicio <= 1) return autorizado;
         
         return true;
         
-//        return  disponible && (tiempoServicio <= 1 ? autorizo : true);
+//        return  disponible && (tiempoServicio <= 1 ? autorizado : true);
     }
 
 }
