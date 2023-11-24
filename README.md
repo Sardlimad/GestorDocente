@@ -1,4 +1,4 @@
-![Gedoo-Banner](Godoo_brand_banner.png)
+![Gedoo-Banner](readme/Godoo_brand_banner.png)
 # GestorDocente
 Gedoo es un Gestor de Carga Docente desarrollado en Java. Este software se encarga de administrar la distribución de asignaturas entre los profesores de un Departamento. 
 Permite el registro de profesores y asignaturas, y luego asigna las asignaturas a los profesores de siguiendo determinados criterios. 
@@ -27,13 +27,50 @@ Este es el problema que el proyecto UCi busca resolver de manera eficiente y efe
 
 ## Diagrama de Clases UML
 
-[Diagrama de clases UML (PDF)](diagrama-clases-UML.pdf)
+[Diagrama de clases UML (PDF)](readme/diagrama-clases-UML.pdf)
 
 ## Introducción
 
 Aquí puedes proporcionar una descripción general de tu proyecto, incluyendo el objetivo, los requisitos y el alcance.
 
 ## Descripción del Proyecto
+
+La clase principal del proyecto es la `GestorDocente`, que es la clase de interfaz gráfica. 
+
+### Clase Departamento
+La clase controladora es `Departamento`, a través de la cual se manipulan los datos de profesores y asignaturas, entre otros.
+Esta clase contiene una `Lista` de tipo `Profesor`, una de tipo `Asignatura`, otros atributos, incluyendo los métodos get u set de algunos de estos, 
+así como varios arrays que almacenan los posibles valores que puede tomar Categoría Docente, Categoría Científica, Carrera. 
+Contiene los métodos para gestionar(agregar, editar y eliminar) tanto profesores como asignaturas y el método clave del proyecto `setPlan()`, 
+para crear la planificación, y otros métodos auxiliares.
+
+## Interfaz Gráfica
+La interfaz gráfica está compuesta por un jFrame, y dentro de este un jPanel que agrupa todos los componentes.
+
+### Componente Menú
+Es un jPanel que contiene otros jPanel que hacen función de botones para navegar por las diferentes vistas. Contiene el logo y nombre de la aplicación y de la UCI.
+
+### Vista Principal
+En esta vista se encuentra un botón para crear la planficiación y un jTable que es donde se muestra.
+
+*¿Cómo se crea la planificación?*
+
+El método `setPlan()` en la clase Departamento es el encargado de realizar la asignación de profesores a las diferentes asignaturas.
+
+1. Se llama al método `isSetteablePlan()` el cual verifica si se cumple el requisito mínimo para que sea posible hacer una distribución, 
+o sea si la sumatoria de horas clases de todas las asignaturas es menor o igual que la cantidad de profesores multimplicada por las horas máximas permitidas para cada profesor(12).
+1. Se llama al método `suficientesTitulares()` para comporbar si hay suficientes titulares siempre y cuando se halla establecido que solo los Profesores Tiutlares pueden imparir conferencia(explicación más adelante).
+1. Si alguna de estas dos condiciones anteriores no se cumple se muestra un jOptionPanel comunicando la causa del error al usuario.
+1. Si ambas condiciones son superadas, se procede a ejecutar el método `agruparProfe()`, que agrupa a los profesores por categorías docentes.
+Se crea un array de Lista de tipo Profesor de tamaño 5(Categorias Docentes). Donde en la posición 0 del array se almacena la Lista de los Profesores Titulares,
+en la posición 1 la Lista de Profesores Auxiliares, posición 2 a los Asistentes, posición 3 a los Instructores, posición 4
+
+![Representación Gráfica de Array de Lista<Profesor>](readme/Array_ListaProfesor.png)
+
+```java
+
+```
+
 
 Describe en detalle el proyecto, incluyendo los componentes principales y cómo interactúan entre sí.
 
