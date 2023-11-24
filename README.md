@@ -35,15 +35,11 @@ La clase principal del proyecto es `GestorDocente`, que es la clase de interfaz 
 y los eventos que estos generan.
 
 ### Clase Departamento
-La clase controladora es `Departamento`, a través de la cual se manipulan los datos de profesores y asignaturas, entre otros.
+Es la clase controladora, a través de la cual se manipulan los datos de profesores y asignaturas, entre otros.
 Esta clase contiene una `Lista` de tipo `Profesor`, una de tipo `Asignatura`, otros atributos, incluyendo los métodos get u set de algunos de estos, 
 así como varios arrays que almacenan los posibles valores que puede tomar Categoría Docente, Categoría Científica, Carrera. 
 Contiene los métodos para gestionar(agregar, editar y eliminar) tanto profesores como asignaturas y el método clave del proyecto `setPlan()`, 
 para crear la planificación, y otros métodos auxiliares.
-
-### Clase Asignatura
-
-### Clase Profesor
 
 ## Interfaz Gráfica
 La interfaz gráfica está compuesta por un jFrame, y dentro de este un jPanel que agrupa todos los componentes.
@@ -103,7 +99,7 @@ crear objetos de tipo Profesor y Asignaturas con información que parezca real.
 
 ![Vista Sección Desarrollo](readme/vistas/desarrollo-small.png)
 
-##Misceláneo
+## Misceláneo
 
 ### Clase Tema
 Para el diseño de la interfaz gráfica se implementó la clase `Tema` que contiene 4 atributos que almacenan colores RGB, 
@@ -120,36 +116,16 @@ public class Tema {
     private static Color button = new Color(0, 120, 181);
     private static Color background = new Color(238, 238, 238);
 
-    //<-----------GETTERS
-    public static Color getPrimary() {
-        return primary;
-    }
+    ....
+```
 
-    public static Color getSecondary() {
-        return secondary;
-    }
-    
-    public static Color getSecondaryHover(){
-        return secondary.darker();
-    }
-
-    public static Color getTertiary() {
-        return new Color(221,221,221);
-    }
-
-    public static Color getButton() {
-        return button;
-    }
+Obtención del color de un botón, para cuando el mouse se coloca sobre este, a partir del color original del botón, haciendo uso de la función `darker()`.
+```java
 
     public static Color getButtonHover() {
         return button.darker();
     }
 
-    public static Color getBackground() {
-        return background;
-    }   
-
-}
 ```
 
 ### Clase Validacion
