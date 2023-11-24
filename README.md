@@ -53,7 +53,7 @@ Es un jPanel que se encuentra en la parte lateral izquiera, es común para todas
 
 ### Vista Principal/Planificación
 
-![Vista Sección Principal](readme/vistas/Principal.png)
+![Vista Sección Principal](readme/vistas/Principal-small.png)
 
 En esta vista se encuentra un botón para crear la planificación y un jTable que es donde se muestra.
 
@@ -82,7 +82,7 @@ que posee actualmente sumadas a las horas del tipo de clase(i) de la Asignatura 
 ### Vista Departamento
 Se muestra un formulario para editar los atriburos del Departamento, y dos tablas que muestran las categorías docentes y científicas y sus respectivos montos de aumento al salario básico de los profesores.
 
-![Vista Sección Departamento](readme/vistas/departamento.png)
+![Vista Sección Departamento](readme/vistas/departamento-small.png)
 
 ### Vistas Profesores y Asignaturas
 
@@ -101,7 +101,7 @@ Estos datos son creados al ejecutar el método `seed(int asigs, int profes)`, do
 Este método hace uso de la clase estática Seeder, la cual posee un array de nombres propios, apellidos, nombres de asignaturas, etc, y los mezcla de manera aleatoria para
 crear objetos de tipo Profesor y Asignaturas con información que parezca real. 
 
-![Vista Sección Desarrollo](readme/vistas/desarrollo.png)
+![Vista Sección Desarrollo](readme/vistas/desarrollo-small.png)
 
 ##Misceláneo
 
