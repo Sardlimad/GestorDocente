@@ -53,7 +53,7 @@ Es un jPanel que se encuentra en la parte lateral izquiera, es común para todas
 
 ### Vista Principal/Planificación
 
-![Vista Sección Principal](readme/vistas/principal.png)
+![Vista Sección Principal](readme/vistas/Principal.png)
 
 En esta vista se encuentra un botón para crear la planificación y un jTable que es donde se muestra.
 
