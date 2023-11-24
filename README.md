@@ -27,7 +27,7 @@ Este es el problema que el proyecto UCi busca resolver de manera eficiente y efe
 
 ## Diagrama de Clases UML
 
-[Diagrama de clases UML (PDF)](/diagrama-clases-UML.pdf)
+[Diagrama de clases UML (PDF)](diagrama-clases-UML.pdf)
 
 ## Introducción
 
