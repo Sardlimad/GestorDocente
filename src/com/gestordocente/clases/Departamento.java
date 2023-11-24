@@ -286,7 +286,7 @@ public class Departamento {
                 if (this.asignaturas.getItemAt(j).getTurnos()[i].getHorasClase() == 0) {
                     continue;
                 }
-                //Iterar por Array de Arrays de Profesores Agrupados por C. Docente
+                //Iterar por Array de Lista de Profesores Agrupados por C. Docente
                 for (int k = 0; k < profesByCat.length; k++) {
 
                     if (profesByCat[k].isEmpty()) {

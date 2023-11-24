@@ -12,6 +12,7 @@ import java.awt.Color;
  */
 public class Tema {
 
+    //Cambie por los colores de su preferencia
     private static Color primary = new Color(34, 40, 49);
     private static Color secondary = new Color(57, 62, 70);
     private static Color button = new Color(0, 120, 181);
