@@ -4,7 +4,7 @@ Gedoo es un Gestor de Carga Docente desarrollado en Java. Este software se encar
 Permite el registro de profesores y asignaturas, y luego asigna las asignaturas a los profesores de siguiendo determinados criterios. 
 Gedoo es una herramienta útil para los departamentos académicos que buscan optimizar la distribución de carga de trabajo entre sus profesores.
 
-##Introducción
+## Introducción
 El proyecto UCi tiene como objetivo automatizar la planificación de la carga docente de un departamento específico. Esto implica la asignación de profesores a las distintas asignaturas que se deben impartir en un semestre.
 
 El departamento a planificar se caracteriza por su nombre, la facultad a la que pertenece, el nombre del jefe del departamento, los profesores y la relación de las asignaturas que debe impartir en el semestre.
@@ -25,7 +25,7 @@ Este es el problema que el proyecto UCi busca resolver de manera eficiente y efe
 * Las clases de Conferencia deben ser impartidas por Profesores Titulares.
 * En una semana un profesor no debe impartir más de 12 horas de clase.
 
-### Diagrama de Clases UML
+## Diagrama de Clases UML
 
 [Diagrama de clases UML (PDF)](/diagrama-clases-UML.pdf)
 
