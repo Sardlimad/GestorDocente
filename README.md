@@ -59,9 +59,9 @@ El método `setPlan()` en la clase Departamento es el encargado de realizar la a
 
 1. Se llama al método `isSetteablePlan()` el cual verifica si se cumple el requisito mínimo para que sea posible hacer una distribución, 
 o sea si la sumatoria de horas clases de todas las asignaturas es menor o igual que la cantidad de profesores multimplicada por las horas máximas permitidas para cada profesor(12).
-1. Se llama al método `suficientesTitulares()` para comporbar si hay suficientes titulares siempre y cuando se halla establecido que solo los Profesores Tiutlares pueden imparir conferencia(explicación más adelante).
+1. Se llama al método `suficientesTitulares()` para comporbar si hay suficientes titulares siempre y cuando se halla establecido que solo los Profesores Titulares pueden imparir conferencia.
 1. Si alguna de estas dos condiciones anteriores no se cumple se muestra un jOptionPanel comunicando la causa del error al usuario.
-1. Si ambas condiciones son superadas, se procede a ejecutar el método `agruparProfe()`, que devuelve a los profesores agrupados por categoría docentes.
+1. Si ambas condiciones son superadas, se procede a ejecutar el método `agruparProfe()`, que devuelve a los profesores agrupados por categoría docente.
 Se crea un array de Lista<Profesor> de tamaño 5(Categorias Docentes). Donde en la posición 0 del array se almacena la Lista de los Profesores Titulares,
 en la posición 1 la Lista de Profesores Auxiliares, posición 2 a los Asistentes, posición 3 a los Instructores, posición 4 los Adiestrados.
 
