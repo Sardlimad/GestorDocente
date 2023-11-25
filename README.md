@@ -13,7 +13,7 @@ Cada profesor del departamento se identifica por su número de identidad, nombre
 
 Las asignaturas se identifican por su nombre, la disciplina a la que pertenecen, la cantidad de horas por cada tipo de enseñanza (conferencia, clase práctica, seminario, laboratorio, taller), el plan de estudio al que pertenecen, la carrera y el año en que se imparten y si tienen o no evaluación final, y en caso de tenerla, incluye el tipo de evaluación final (exámen, trabajo de curso).
 
-Para la planificación se considerará la disponibilidad de los profesores en el periodo, es decir, en el caso de los profesores adiestrados, en su primer año de trabajo, deben contar con la autorización de la universidad para impartir docencia.
+Para la planificación se considerará la disponibilidad de los profesores en el periodo, y en el caso de los profesores adiestrados, en su primer año de trabajo, deben contar con la autorización de la universidad para impartir docencia.
 
 Además, en la planificación se debe tener en cuenta que las conferencias deben ser impartidas por Profesores Titulares siempre que sea posible. También se establece un límite de que en una semana un profesor no puede impartir más de 12 horas de clases.
 
@@ -36,7 +36,7 @@ y los eventos que estos generan.
 
 ### Clase Departamento
 Es la clase controladora, a través de la cual se manipulan los datos de profesores y asignaturas, entre otros.
-Esta clase contiene una `Lista` de tipo `Profesor`, una de tipo `Asignatura`, otros atributos, incluyendo los métodos get u set de algunos de estos, 
+Esta clase contiene una `Lista` de tipo `Profesor`, una de tipo `Asignatura`, otros atributos, incluyendo los métodos get y set de algunos de estos, 
 así como varios arrays que almacenan los posibles valores que puede tomar Categoría Docente, Categoría Científica, Carrera. 
 Contiene los métodos para gestionar(agregar, editar y eliminar) tanto profesores como asignaturas y el método clave del proyecto `setPlan()`, 
 para crear la planificación, y otros métodos auxiliares.
