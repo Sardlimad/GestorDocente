@@ -70,7 +70,7 @@ Ejemplo:
 
 1. Luego se itera(i) por los tipos de clase(Conferencia, Clase Práctica, Seminario, Laboratorio, Taller).
 1. Se itera(j) por las Lista de Asignaturas
-1. Se itera(k) por el array de Lista<Profesor> agrupados por categoría docente. De este modo se garantiza que la docencia sea impartida por los profesores más calificados, en la medida de lo posible. Se 
+1. Se itera(k) por el array de Lista<Profesor> agrupados por categoría docente. De este modo se garantiza que la docencia sea impartida por los profesores más calificados, en la medida de lo posible.
 1. Se itera(l) por la Lista<Profesor> de una categoría `k < 5`, se determina cuál de estos profesores tiene menor horas de clase asignadas y si la cantidad de horas
 que posee actualmente sumadas a las horas del tipo de clase(i) de la Asignatura (j) es menor o igual a 12(máximo de horas permitidas), entonces se le asigna ese turno al profesor(l) y se rompe el ciclo pasando a la próxima asignatura.
 1. Luego en la Vista Principal se renderiza la tabla de planficiación con los datos creados.
@@ -84,7 +84,7 @@ Se muestra un formulario para editar los atriburos del Departamento, y dos tabla
 
 En ambas vistas se muestra un formulario para crea sus respectivos objetos y una tabla para mostrarlos; al seleccionar un elemento de la tabla y click derecho sobre este, se muestra un menú con las opciones: editar y eliminar. 
 En la vista profesores se calcula dinámicamente el salario del profesor a medida que se va proporcionando los datos de categoría científica, docente y los años de antigüedad. Si se selecciona la categoría Adiestrado, el jCheckField 
-correspondiente a el autorizo para impartir docencia se activa o desactiva en función de la cantidad de años de antigüedad.
+correspondiente al autorizo para impartir docencia se activa o desactiva en función de la cantidad de años de antigüedad.
 
 ![Vistas Secciones Profesores y Asignaturas](readme/vistas/profes-asigs.png)
 
