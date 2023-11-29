@@ -13,7 +13,7 @@ Cada profesor del departamento se identifica por su número de identidad, nombre
 
 Las asignaturas se identifican por su nombre, la disciplina a la que pertenecen, la cantidad de horas por cada tipo de enseñanza (conferencia, clase práctica, seminario, laboratorio, taller), el plan de estudio al que pertenecen, la carrera y el año en que se imparten y si tienen o no evaluación final, y en caso de tenerla, incluye el tipo de evaluación final (exámen, trabajo de curso).
 
-Para la planificación se considerará la disponibilidad de los profesores en el periodo, es decir, en el caso de los profesores adiestrados, en su primer año de trabajo, deben contar con la autorización de la universidad para impartir docencia.
+Para la planificación se considerará la disponibilidad de los profesores en el periodo, y en el caso de los profesores adiestrados, en su primer año de trabajo, deben contar con la autorización de la universidad para impartir docencia.
 
 Además, en la planificación se debe tener en cuenta que las conferencias deben ser impartidas por Profesores Titulares siempre que sea posible. También se establece un límite de que en una semana un profesor no puede impartir más de 12 horas de clases.
 
@@ -36,7 +36,7 @@ y los eventos que estos generan.
 
 ### Clase Departamento
 Es la clase controladora, a través de la cual se manipulan los datos de profesores y asignaturas, entre otros.
-Esta clase contiene una `Lista` de tipo `Profesor`, una de tipo `Asignatura`, otros atributos, incluyendo los métodos get u set de algunos de estos, 
+Esta clase contiene una `Lista` de tipo `Profesor`, una de tipo `Asignatura`, otros atributos, incluyendo los métodos get y set de algunos de estos, 
 así como varios arrays que almacenan los posibles valores que puede tomar Categoría Docente, Categoría Científica, Carrera. 
 Contiene los métodos para gestionar(agregar, editar y eliminar) tanto profesores como asignaturas y el método clave del proyecto `setPlan()`, 
 para crear la planificación, y otros métodos auxiliares.
@@ -59,9 +59,9 @@ El método `setPlan()` en la clase Departamento es el encargado de realizar la a
 
 1. Se llama al método `isSetteablePlan()` el cual verifica si se cumple el requisito mínimo para que sea posible hacer una distribución, 
 o sea si la sumatoria de horas clases de todas las asignaturas es menor o igual que la cantidad de profesores multimplicada por las horas máximas permitidas para cada profesor(12).
-1. Se llama al método `suficientesTitulares()` para comporbar si hay suficientes titulares siempre y cuando se halla establecido que solo los Profesores Tiutlares pueden imparir conferencia(explicación más adelante).
+1. Se llama al método `suficientesTitulares()` para comporbar si hay suficientes titulares siempre y cuando se halla establecido que solo los Profesores Titulares pueden imparir conferencia.
 1. Si alguna de estas dos condiciones anteriores no se cumple se muestra un jOptionPanel comunicando la causa del error al usuario.
-1. Si ambas condiciones son superadas, se procede a ejecutar el método `agruparProfe()`, que devuelve a los profesores agrupados por categoría docentes.
+1. Si ambas condiciones son superadas, se procede a ejecutar el método `agruparProfe()`, que devuelve a los profesores agrupados por categoría docente.
 Se crea un array de Lista<Profesor> de tamaño 5(Categorias Docentes). Donde en la posición 0 del array se almacena la Lista de los Profesores Titulares,
 en la posición 1 la Lista de Profesores Auxiliares, posición 2 a los Asistentes, posición 3 a los Instructores, posición 4 los Adiestrados.
 
@@ -70,7 +70,7 @@ Ejemplo:
 
 1. Luego se itera(i) por los tipos de clase(Conferencia, Clase Práctica, Seminario, Laboratorio, Taller).
 1. Se itera(j) por las Lista de Asignaturas
-1. Se itera(k) por el array de Lista<Profesor> agrupados por categoría docente. De este modo se garantiza que la docencia sea impartida por los profesores más calificados, en la medida de lo posible. Se 
+1. Se itera(k) por el array de Lista<Profesor> agrupados por categoría docente. De este modo se garantiza que la docencia sea impartida por los profesores más calificados, en la medida de lo posible.
 1. Se itera(l) por la Lista<Profesor> de una categoría `k < 5`, se determina cuál de estos profesores tiene menor horas de clase asignadas y si la cantidad de horas
 que posee actualmente sumadas a las horas del tipo de clase(i) de la Asignatura (j) es menor o igual a 12(máximo de horas permitidas), entonces se le asigna ese turno al profesor(l) y se rompe el ciclo pasando a la próxima asignatura.
 1. Luego en la Vista Principal se renderiza la tabla de planficiación con los datos creados.
@@ -84,7 +84,7 @@ Se muestra un formulario para editar los atriburos del Departamento, y dos tabla
 
 En ambas vistas se muestra un formulario para crea sus respectivos objetos y una tabla para mostrarlos; al seleccionar un elemento de la tabla y click derecho sobre este, se muestra un menú con las opciones: editar y eliminar. 
 En la vista profesores se calcula dinámicamente el salario del profesor a medida que se va proporcionando los datos de categoría científica, docente y los años de antigüedad. Si se selecciona la categoría Adiestrado, el jCheckField 
-correspondiente a el autorizo para impartir docencia se activa o desactiva en función de la cantidad de años de antigüedad.
+correspondiente al autorizo para impartir docencia se activa o desactiva en función de la cantidad de años de antigüedad.
 
 ![Vistas Secciones Profesores y Asignaturas](readme/vistas/profes-asigs.png)
 
